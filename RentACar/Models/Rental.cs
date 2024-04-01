@@ -2,11 +2,11 @@
 {
     public class Rental
     {
-        public int id {  get; set; }
-        public DateTime from_date { get; set; }
-        public DateTime to_date { get; set;}
-        public DateTime created {  get; set; }
-        public Car car { get; set; }
-        public User user { get; set; }
+        public int Id {  get; set; }
+        public User User { get; set; }
+        public Car Car { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set;}
+        public DateTime Created {  get; set; }
     }
 }
