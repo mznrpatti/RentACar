@@ -4,6 +4,6 @@ namespace RentACar.Interfaces
 {
     public interface ICarRepository
     {
-        public IEnumerable<Car> GetCars();
+        IList<CarModel> GetCars();
     }
 }

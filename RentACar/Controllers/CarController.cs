@@ -16,13 +16,10 @@ namespace RentACar.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type=typeof(IEnumerable<Car>))]
         public IActionResult GetCars()
         {
-             var cars=_carRepository.GetCars();
+            var cars = _carRepository.GetCars();
 
-            if (ModelState.IsValid)
-                return BadRequest(ModelState);
             return Ok(cars);
         }
     }

@@ -1,46 +1,29 @@
-﻿using RentACar.Interfaces;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RentACar.Data;
+using RentACar.Interfaces;
 using RentACar.Models;
 
 namespace RentACar.Repository
 {
     public class CarRepository : ICarRepository
     {
-        private List<Car> cars;
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public CarRepository()
+        public CarRepository(DataContext context, IMapper mapper)
         {
-            cars = new List<Car>();
-            cars.Add(new Car
-            {
-                Id = 1,
-                Category = new Category {Id=1, Name="sedan"},
-                Brand = "Opel",
-                Model = "G Astra",
-                DailyPrice = 10000
-            });
-
-            cars.Add(new Car
-            {
-                Id = 2,
-                Category = new Category { Id = 2, Name = "SUV" },
-                Brand = "Toyota",
-                Model = "C-HR",
-                DailyPrice = 15000
-            });
-
-            cars.Add(new Car
-            {
-                Id = 3,
-                Category = new Category { Id = 2, Name = "sedan" },
-                Brand = "Volkswagen",
-                Model = "Passat",
-                DailyPrice = 16000
-            });
+            _context = context;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Car> GetCars()
+        IList<CarModel> ICarRepository.GetCars()
         {
-            return cars;
+            //get Cars as Queryable and put Category
+            //mapping
+            var carEntity = _context.Cars.AsQueryable().Include(c => c.Category).ToList();
+            var carModel = _mapper.Map<IList<CarModel>>(carEntity);
+            return carModel;
         }
     }
 }
