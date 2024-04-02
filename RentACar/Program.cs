@@ -20,6 +20,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var ctx = scope.ServiceProvider.GetRequiredService<DataContext>();
+    ctx.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

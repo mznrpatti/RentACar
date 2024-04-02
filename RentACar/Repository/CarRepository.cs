@@ -17,7 +17,7 @@ namespace RentACar.Repository
             _mapper = mapper;
         }
 
-        IList<CarModel> ICarRepository.GetCars()
+        public IList<CarModel> GetCars()
         {
             //get Cars as Queryable and put Category
             //mapping
