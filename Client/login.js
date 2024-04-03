@@ -1,12 +1,11 @@
 async function login() {
-    var email = document.getElementById('typeEmail').value;
+    var username = document.getElementById('typeUsername').value;
     var password = document.getElementById('typePassword').value;
-    if (isEmpty(email) || isEmpty(password)) {
+    if (isEmpty(username) || isEmpty(password)) {
         alert('Type email and password!');
-    } else if (!validateEmail(email)) {
-        alert('Wrong email!');
-    } else {
-        if (password=='password' && email=='user@gmail.com')
+    }
+	else {
+        if (password=='password' && username=='user')
 			window.location.href = "index.html";
 		else
 			alert('Wrong creditentials!')
@@ -15,9 +14,4 @@ async function login() {
 
 function isEmpty(str) {
     return (!str || 0 === str.length);
-}
-
-function validateEmail(email) {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
 }
