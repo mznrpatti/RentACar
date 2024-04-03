@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         data.forEach(car => {
             const row = document.createElement('tr');
             row.innerHTML = `
+				<td>${car.id}</td>
                 <td>${car.categoryName}</td>
                 <td>${car.brand}</td>
                 <td>${car.model}</td>
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.forEach(car => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
+						<td>${car.id}</td>
                         <td>${car.categoryName}</td>
                         <td>${car.brand}</td>
                         <td>${car.model}</td>
