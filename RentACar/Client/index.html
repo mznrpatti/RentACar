@@ -9,15 +9,22 @@
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">RENT A CAR</a>
-        </div>
-    </nav>
-</header>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">RENT A CAR</a>
+            </div>
+        </nav>
+    </header>
     <h1>Available cars</h1>
-    
+
+    <div>
+        <label for="category-filter">Filter by category:</label>
+        <select id="category-filter">
+            <option value="All">All</option> <!-- Az összes kategória megjelenítése -->
+        </select>
+    </div>
+
     <table id="car-table">
         <thead>
             <tr>
@@ -28,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Autók adatainak megjelenítése ide kerül majd -->
+            <!-- Car datas -->
         </tbody>
     </table>
 

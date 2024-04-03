@@ -24,5 +24,28 @@ namespace RentACar.Controllers
 
             return Ok(cars);
         }
+
+        [HttpGet]
+        public IActionResult GetCarsByCategory(string category)
+        {
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return BadRequest("Category cannot be null or empty");
+            }
+            else if(category.Equals("All"))
+            {
+                var allcars = _carRepository.GetCars();
+
+                Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+                return Ok(allcars);
+            }
+
+            var cars = _carRepository.GetCars().Where(c => string.Equals(c.CategoryName, category, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            return Ok(cars);
+        }
     }
 }
