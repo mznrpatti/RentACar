@@ -6,7 +6,7 @@ namespace RentACar.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CarController : Controller
+    public class CarController : ControllerBase
     {
         private readonly ICarRepository _carRepository;
 
@@ -19,6 +19,8 @@ namespace RentACar.Controllers
         public IActionResult GetCars()
         {
             var cars = _carRepository.GetCars();
+
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
             return Ok(cars);
         }
