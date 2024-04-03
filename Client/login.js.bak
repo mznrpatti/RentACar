@@ -17,6 +17,11 @@ function isEmpty(str) {
 }
 
 function moveCar() {
+    var car = document.getElementById('car');
+
+    // Az autó jobbra mozgatása animációval
+    car.style.right = 'calc(100% + 50px)';
+
     // Oldalváltás, például egy másik oldalra navigálás
     setTimeout(function() {
         window.location.href = 'index.html'; // Az új oldal URL-je

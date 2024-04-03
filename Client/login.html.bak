@@ -39,10 +39,10 @@
 
       </div>
 		
-			<div class="col-sm-6 px-0 d-none d-sm-block position-relative">
-				<img src="auto.png" class="car-image" id="car" alt="Car">
-				<img src="road.jpg" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
-			</div>
+			<div class="col-sm-6 px-0 d-none d-sm-block position-relative" style="background-image: url('auto.png'); background-size: cover;">
+    <img src="road.jpg" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+</div>
+
 <		
     </div>
   </div>
