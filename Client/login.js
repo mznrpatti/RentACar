@@ -10,11 +10,11 @@ async function login() {
         };
         try {
             const response = await postData("auth/login", data, false);
-            if (response.token) {
-                localStorage.setItem("token", response.token); // Itt tárold el a tokent helyileg
-                window.location.href = "index.html";
+            if (response.username) {
+                localStorage.setItem("username", response.username); // store username
+                moveCar();
             } else {
-                alert(response.message);
+                alert("Wrong creditentials!");
             }
         } catch (error) {
             console.error("Login error:", error);
@@ -30,12 +30,12 @@ function isEmpty(str) {
 
 
 function moveCar() {
-    // Oldalváltás, például egy másik oldalra navigálás
+    // change page
     setTimeout(function() {
-        window.location.href = 'index.html'; // Az új oldal URL-je
-    }, 2000); // 2 másodperc múlva vált oldalra
+        window.location.href = 'index.html'; // URL of new page
+    }, 2000); // 2 seconds delay
     
-    // Az auto.png kép mozgatása az autóval együtt
+    //move auto image
     var carImage = document.querySelector('.car-image');
     carImage.style.right = 'calc(100% + 50px)';
 }

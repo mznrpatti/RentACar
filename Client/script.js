@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('https://localhost:6200/api/car/getcars')
     .then(response => response.json())
     .then(data => {
+		setWelcomeMessage();
         const carTableBody = document.querySelector('#car-table tbody');
         const categories = new Set();
         data.forEach(car => {
@@ -55,3 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+
+function setWelcomeMessage() {
+	var storedUsername = localStorage.getItem("username");
+    document.getElementById("welcome").innerText = "Welcome "+storedUsername+"!";
+}
