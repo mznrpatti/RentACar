@@ -1,4 +1,6 @@
-﻿namespace RentACar.Models
+﻿using RentACar.Models.Entities;
+
+namespace RentACar.Models
 {
     public class Rental
     {
