@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('https://localhost:6200/api/car/getcars')
     .then(response => response.json())
     .then(data => {
-		setWelcomeMessage();
+        setWelcomeMessage();
         const carTableBody = document.querySelector('#car-table tbody');
         const categories = new Set();
         data.forEach(car => {
             const row = document.createElement('tr');
             row.innerHTML = `
-				<td>${car.id}</td>
+                <td>${car.id}</td>
                 <td>${car.categoryName}</td>
                 <td>${car.brand}</td>
                 <td>${car.model}</td>
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             categoryFilter.appendChild(option);
         });
     })
-        .catch(error => console.error('Error fetching cars:', error));
+    .catch(error => console.error('Error fetching cars:', error));
 
     const categoryFilter = document.querySelector('#category-filter');
     const carTableBody = document.querySelector('#car-table tbody');
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.forEach(car => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-						<td>${car.id}</td>
+                        <td>${car.id}</td>
                         <td>${car.categoryName}</td>
                         <td>${car.brand}</td>
                         <td>${car.model}</td>
@@ -54,10 +54,27 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error fetching cars by category:', error));
     });
-
+    
+    fetch('https://localhost:6200/api/sale/getallsales')
+            .then(response => response.json())
+            .then(data => {
+                const saleTableBody = document.querySelector('#sale-table tbody'); // Az "On Sale" táblázat tbody eleme
+                data.forEach(sale => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${sale.carBrand}</td>
+                        <td>${sale.carModel}</td>
+                        <td>${sale.description}</td>
+                        <td>${sale.percentage}</td>
+						<td>${sale.changedPrice}</td>
+                    `;
+                    saleTableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching sales:', error));
 });
 
 function setWelcomeMessage() {
-	var storedUsername = localStorage.getItem("username");
+    var storedUsername = localStorage.getItem("username");
     document.getElementById("welcome").innerText = "Welcome "+storedUsername+"!";
 }

@@ -32,8 +32,8 @@ function isEmpty(str) {
 function moveCar() {
     // change page
     setTimeout(function() {
-        window.location.href = 'index.html'; // URL of new page
-    }, 2000); // 2 seconds delay
+        window.location.href = 'index.html'; 
+    }, 1000); 
     
     //move auto image
     var carImage = document.querySelector('.car-image');

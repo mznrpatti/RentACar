@@ -5,13 +5,13 @@ body {
     background-color: #f0f0f0;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-top: 20px;
     color: #333;
 }
 
-#car-table {
+table {
     width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
@@ -19,19 +19,19 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#car-table th, #car-table td {
+th, td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-#car-table th {
+th {
     background-color: #f2f2f2;
     text-align: left;
     font-weight: bold;
     color: #333;
 }
 
-#car-table tbody tr:hover {
+tbody tr:hover {
     background-color: #f9f9f9;
 }
 
@@ -58,3 +58,6 @@ height: 100%;
     z-index: 1000; /* A kép a legfelső rétegben legyen */
 }
 
+.section-divider {
+    margin-top: 80px; 
+}

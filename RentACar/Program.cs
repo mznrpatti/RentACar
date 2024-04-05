@@ -15,6 +15,7 @@ services.AddDbContext<DataContext>(options =>
 });
 services.AddScoped<ICarRepository, CarRepository>();
 services.AddScoped<IAuthRepository, AuthRepository>();
+services.AddScoped<ISaleRepository, SaleRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
