@@ -47,5 +47,21 @@ namespace RentACar.Controllers
 
             return Ok(cars);
         }
+
+        [HttpGet("{carId}/availability")]
+        public IActionResult GetRentalAvailability(int carId)
+        {
+            var availability = _carRepository.GetRentalAvailability(carId);
+
+            if (availability == null)
+            {
+                return NotFound();
+            }
+
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            return Ok(availability);
+        }
+
     }
 }

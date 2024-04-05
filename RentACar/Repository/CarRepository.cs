@@ -25,5 +25,21 @@ namespace RentACar.Repository
             var carModel = _mapper.Map<IList<CarModel>>(carEntity);
             return carModel;
         }
+
+        public List<Rental> GetRentalAvailability(int carId)
+        {
+            var rentalAvailabilities = _context.Rentals
+                                       .Where(r => r.CarId == carId)
+                                       .Select(r => new Rental
+                                       {
+                                           Id = r.Id,
+                                           FromDate = r.FromDate,
+                                           ToDate = r.ToDate
+                                       })
+                                       .ToList();
+
+            return rentalAvailabilities;
+
+        }
     }
 }
