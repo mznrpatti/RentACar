@@ -48,8 +48,10 @@ namespace RentACar.Controllers
                     days.Remove(day);
                 }
             }
-            
-            return Ok(days);
+
+            var formattedDays = days.Select(d => d.Date.ToString("yyyy-MM-dd")).ToList();
+            return Ok(formattedDays);
+            //return Ok(days);
         }
     }
 }
