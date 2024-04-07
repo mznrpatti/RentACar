@@ -42,7 +42,6 @@ namespace RentACar.Repository
                                        .ToList();
 
             return rentalAvailabilities;
-
         }
         
 
@@ -93,6 +92,7 @@ namespace RentACar.Repository
              _context.Rentals.Add(rental);
              _context.SaveChanges();
          }*/
+
         public void AddRental(RentalModel rentalModel)
         {
             var rental = _mapper.Map<RentACar.Models.Entities.Rental>(rentalModel);

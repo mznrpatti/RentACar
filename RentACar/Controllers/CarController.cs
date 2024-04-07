@@ -20,8 +20,6 @@ namespace RentACar.Controllers
         {
             var cars = _carRepository.GetCars();
 
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
             return Ok(cars);
         }
 
@@ -36,31 +34,12 @@ namespace RentACar.Controllers
             {
                 var allcars = _carRepository.GetCars();
 
-                Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
                 return Ok(allcars);
             }
 
             var cars = _carRepository.GetCars().Where(c => string.Equals(c.CategoryName, category, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
             return Ok(cars);
-        }
-
-        [HttpGet("{carId}/availability")]
-        public IActionResult GetRentalAvailability(int carId)
-        {
-            var availability = _carRepository.GetRentalAvailability(carId);
-
-            if (availability == null)
-            {
-                return NotFound();
-            }
-
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
-            return Ok(availability);
         }
 
        /* [HttpPost]

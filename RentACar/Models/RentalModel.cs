@@ -2,8 +2,10 @@
 {
     public class RentalModel
     {
-        public int Id { get; set; }
+        public int CarId { get; set; }
+        public int UserId { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public DateTime Created {  get; set; }
     }
 }
