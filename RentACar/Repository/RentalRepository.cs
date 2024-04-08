@@ -98,7 +98,7 @@ namespace RentACar.Repository
             DateTime fromDate;
             DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
             DateTime toDate;
-            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            DateTime.TryParseExact(rentalDateModel.ToDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
             int indexOfFromDate = -1;
             int indexOfToDate = -1;
             for (int i = 0; i < availableDays.Count; i++)

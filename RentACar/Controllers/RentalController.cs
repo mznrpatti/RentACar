@@ -7,6 +7,7 @@ using RentACar.Repository;
 using System.Globalization;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace RentACar.Controllers
 {
@@ -37,16 +38,16 @@ namespace RentACar.Controllers
             DateTime fromDate;
             DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
             DateTime toDate;
-            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            DateTime.TryParseExact(rentalDateModel.ToDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
             if (fromDate.CompareTo(toDate)>0)
             {
-                throw new Exception("From date cannot be earlier than to date!");
+                return BadRequest("From date cannot be earlier than to date!");
             }
             else
             {
                 if (_rentalRepository.IsOverlap(rentalDateModel))
                 {
-                    throw new Exception("Overlapping rentals! You can't reserve the car on these days!");
+                    return BadRequest("Overlapping rentals! You can't reserve the car on these days!");
                 }
                 else
                 {
