@@ -94,11 +94,16 @@ sedan
 ### POST/<sub>ReserveCar
 #### Request
 ```
-
+{
+  "carId": 1,
+  "username": "user",
+  "fromDate": "2024-04-09",
+  "toDate": "2024-04-11"
+}
 ```
 #### Response
 ```
-
+Car successfully reserved!
 ```
 ### GET/<sub>GetRentalAvailability
 #### Request
