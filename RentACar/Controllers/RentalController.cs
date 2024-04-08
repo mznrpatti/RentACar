@@ -33,37 +33,44 @@ namespace RentACar.Controllers
         [HttpPost]
         public IActionResult RentCar(RentalDateModel rentalDateModel)
         {
-            List<DateTime> availableDays = _rentalRepository.GetAvailableDates(rentalDateModel.CarId);
-            string format = "yyyy-MM-dd";
-            DateTime fromDate;
-            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
-            DateTime toDate;
-            DateTime.TryParseExact(rentalDateModel.ToDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
-            if (fromDate.CompareTo(toDate)>0)
+            try
             {
-                return BadRequest("From date cannot be earlier than to date!");
-            }
-            else
-            {
-                if (_rentalRepository.IsOverlap(rentalDateModel))
+                List<DateTime> availableDays = _rentalRepository.GetAvailableDates(rentalDateModel.CarId);
+                string format = "yyyy-MM-dd";
+                DateTime fromDate;
+                DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+                DateTime toDate;
+                DateTime.TryParseExact(rentalDateModel.ToDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+                if (fromDate.CompareTo(toDate) > 0)
                 {
-                    return BadRequest("Overlapping rentals! You can't reserve the car on these days!");
+                    return BadRequest("From date cannot be earlier than to date!");
                 }
                 else
                 {
-                    RentalModel rentalModel = new RentalModel
+                    if (_rentalRepository.IsOverlap(rentalDateModel))
                     {
-                        CarId = rentalDateModel.CarId,
-                        UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
-                        FromDate = fromDate,
-                        ToDate = toDate,
-                        Created = DateTime.Now
-                    };
+                        return BadRequest("Overlapping rentals! You can't reserve the car on these days!");
+                    }
+                    else
+                    {
+                        RentalModel rentalModel = new RentalModel
+                        {
+                            CarId = rentalDateModel.CarId,
+                            UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
+                            FromDate = fromDate,
+                            ToDate = toDate,
+                            Created = DateTime.Now
+                        };
 
-                    _rentalRepository.AddRental(rentalModel);
+                        _rentalRepository.AddRental(rentalModel);
 
-                    return Ok("Car successfully reserved!");
+                        return Ok("Car successfully reserved!");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Rental failed. " + ex.Message);
             }
         }
     }

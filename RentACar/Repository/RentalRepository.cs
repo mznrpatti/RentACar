@@ -118,8 +118,9 @@ namespace RentACar.Repository
                 if (!(availableDays[i].Date == previousDate.AddDays(1).Date))
                 {
                     isOverlap = true;
+                    break;
                 }
-                previousDate.AddDays(1);
+                previousDate=previousDate.AddDays(1);
             }
 
             return isOverlap;

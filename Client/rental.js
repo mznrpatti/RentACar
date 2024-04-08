@@ -33,3 +33,21 @@ function getUsername(){
 	if(storedUsername==null) return "";
 	return storedUsername;
 }
+
+async function rent() {
+    var fromdate = document.getElementById('from-date').value;
+    var todate = document.getElementById('to-date').value;
+	var data = {
+            carid: carId,
+            username: getUsername(),
+			fromdate: fromdate,
+			todate: todate
+        };
+	try {
+        const response = await postDataText("rental/rentcar", data, false);
+        alert(response);
+    } catch (error) {
+        console.error("Rental error:", error);
+        alert("Rental failed. Please try again later.");
+    }
+}
