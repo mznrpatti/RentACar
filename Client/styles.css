@@ -54,7 +54,7 @@ height: 100%;
     top: 90%;
     right: -100px; /* Jobboldalon kezdőpozíció */
     transform: translateY(-70%);
-    transition: right 1s ease; /* Animáció a pozícióváltáshoz */
+    transition: right 2s ease; /* Animáció a pozícióváltáshoz */
     z-index: 1000; /* A kép a legfelső rétegben legyen */
 }
 
