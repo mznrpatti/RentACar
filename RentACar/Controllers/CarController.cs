@@ -72,13 +72,13 @@ namespace RentACar.Controllers
             return Ok("Car rented successfully");
         }
        */
-        private bool IsCarAvailableForRental(DateTime fromDate, DateTime toDate, int carId)
+        /*private bool IsCarAvailableForRental(DateTime fromDate, DateTime toDate, int carId)
         {
             var overlappingRentals = _carRepository.GetOverlappingRentals(fromDate, toDate, carId);
             return overlappingRentals != null && overlappingRentals.Count == 0;
-        }
+        }*/
 
-        private DateTime CalculateNextAvailableDate(DateTime fromDate, int carId)
+        /*private DateTime CalculateNextAvailableDate(DateTime fromDate, int carId)
         {
             var nextAvailableDate = fromDate;
 
@@ -88,9 +88,9 @@ namespace RentACar.Controllers
             }
 
             return nextAvailableDate;
-        }
+        }*/
 
-        [HttpPost("{carId}/reserve")]
+        /*[HttpPost("{carId}/reserve")]
         public IActionResult ReserveCar(int carId, RentalModel rental)
         {
             if (rental.FromDate == null || rental.ToDate == null || rental.FromDate > rental.ToDate)
@@ -115,6 +115,6 @@ namespace RentACar.Controllers
 
 
             return Ok("Car successfully reserved!");
-        }
+        }*/
     }
 }

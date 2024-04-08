@@ -20,7 +20,6 @@ namespace RentACar.Controllers
         public async Task<IActionResult> Login(UserLoginModel userLoginModel)
         {
             var response = await _authRepository.Login(userLoginModel);
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return Ok(response);
         }
     }

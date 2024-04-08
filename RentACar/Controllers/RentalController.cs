@@ -1,6 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.SqlServer.Server;
 using RentACar.Interfaces;
+using RentACar.Models;
 using RentACar.Repository;
+using System.Globalization;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace RentACar.Controllers
 {
@@ -18,40 +24,41 @@ namespace RentACar.Controllers
         [HttpGet("{carId}")]
         public IActionResult GetRentalAvailability(int carId)
         {
-            DateTime from = DateTime.Today;
-            DateTime to = from.AddDays(30);
-
-            List<DateTime> days = new List<DateTime>();
-            DateTime currentDate = DateTime.Today;
-            while (currentDate <= to)
-            {
-                days.Add(currentDate);
-                currentDate = currentDate.AddDays(1);
-            }
-
-            List<DateTime> wrongDays=_rentalRepository.GetNotAvailableDates(carId);
-            if(wrongDays.Count > 0)
-            {
-                List<DateTime> deleteDays = new List<DateTime>();
-                foreach (var wrongDay in wrongDays)
-                {
-                    foreach (var day in days)
-                    {
-                        if (wrongDay.Year == day.Year && wrongDay.Month == day.Month && wrongDay.Day == day.Day)
-                        {
-                            deleteDays.Add(day);
-                        }
-                    }
-                }
-                foreach (var day in deleteDays)
-                {
-                    days.Remove(day);
-                }
-            }
-
+            List<DateTime> days = _rentalRepository.GetAvailableDates(carId);
             var formattedDays = days.Select(d => d.Date.ToString("yyyy-MM-dd")).ToList();
             return Ok(formattedDays);
-            //return Ok(days);
+        }
+
+        [HttpPost]
+        public IActionResult RentCar(RentalDateModel rentalDateModel)
+        {
+            List<DateTime> availableDays = _rentalRepository.GetAvailableDates(rentalDateModel.CarId);
+            string format = "yyyy-MM-dd";
+            DateTime fromDate;
+            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+            DateTime toDate;
+            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            if (fromDate > toDate)
+            {
+                throw new Exception("From date cannot be earlier than to date!");
+            }
+            if (_rentalRepository.IsOverlap(rentalDateModel))
+            {
+                throw new Exception("Overlapping rentals! You can't reserve the car on these days!");
+            }
+
+            RentalModel rentalModel = new RentalModel
+            {
+                CarId = rentalDateModel.CarId,
+                UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
+                FromDate = fromDate,
+                ToDate = toDate,
+                Created = DateTime.Now
+            };
+
+            _rentalRepository.AddRental(rentalModel);
+
+            return Ok("Car successfully reserved!");
         }
     }
 }

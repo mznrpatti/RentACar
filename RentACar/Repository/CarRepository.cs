@@ -29,7 +29,7 @@ namespace RentACar.Repository
             return carModel;
         }
 
-        public List<Rental> GetRentalAvailability(int carId)
+        /*public List<Rental> GetRentalAvailability(int carId)
         {
             var rentalAvailabilities = _context.Rentals
                                        .Where(r => r.CarId == carId)
@@ -64,7 +64,7 @@ namespace RentACar.Repository
             }
 
             return result;
-        }
+        }*/
 
        /* public void AddRental(RentACar.Models.Entities.Rental rental)
         {
@@ -93,12 +93,12 @@ namespace RentACar.Repository
              _context.SaveChanges();
          }*/
 
-        public void AddRental(RentalModel rentalModel)
+        /*public void AddRental(RentalModel rentalModel)
         {
             var rental = _mapper.Map<RentACar.Models.Entities.Rental>(rentalModel);
             _context.Rentals.Add(rental);
             _context.SaveChanges();
-        }
+        }*/
 
         public CarModel GetCarById(int carId)
         {
@@ -115,14 +115,14 @@ namespace RentACar.Repository
             return carModel;
         }
 
-        public bool CheckAvailability(int carId, DateTime fromDate, DateTime toDate)
+        /*public bool CheckAvailability(int carId, DateTime fromDate, DateTime toDate)
         {
             
             var overlappingRentals = _context.Rentals
                 .Any(r => r.CarId == carId && fromDate < r.ToDate && toDate > r.FromDate);
 
             return !overlappingRentals;
-        }
+        }*/
 
     }
 }
