@@ -110,7 +110,6 @@ namespace RentACar.Repository
                 if (availableDays[i].Date==toDate.Date)
                 {
                     indexOfToDate = i;
-                    break;
                 }
             }
             DateTime previousDate = fromDate;
@@ -120,6 +119,7 @@ namespace RentACar.Repository
                 {
                     isOverlap = true;
                 }
+                previousDate.AddDays(1);
             }
 
             return isOverlap;

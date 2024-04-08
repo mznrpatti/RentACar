@@ -38,27 +38,32 @@ namespace RentACar.Controllers
             DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
             DateTime toDate;
             DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
-            if (fromDate > toDate)
+            if (fromDate.CompareTo(toDate)>0)
             {
                 throw new Exception("From date cannot be earlier than to date!");
             }
-            if (_rentalRepository.IsOverlap(rentalDateModel))
+            else
             {
-                throw new Exception("Overlapping rentals! You can't reserve the car on these days!");
+                if (_rentalRepository.IsOverlap(rentalDateModel))
+                {
+                    throw new Exception("Overlapping rentals! You can't reserve the car on these days!");
+                }
+                else
+                {
+                    RentalModel rentalModel = new RentalModel
+                    {
+                        CarId = rentalDateModel.CarId,
+                        UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
+                        FromDate = fromDate,
+                        ToDate = toDate,
+                        Created = DateTime.Now
+                    };
+
+                    _rentalRepository.AddRental(rentalModel);
+
+                    return Ok("Car successfully reserved!");
+                }
             }
-
-            RentalModel rentalModel = new RentalModel
-            {
-                CarId = rentalDateModel.CarId,
-                UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
-                FromDate = fromDate,
-                ToDate = toDate,
-                Created = DateTime.Now
-            };
-
-            _rentalRepository.AddRental(rentalModel);
-
-            return Ok("Car successfully reserved!");
         }
     }
 }
