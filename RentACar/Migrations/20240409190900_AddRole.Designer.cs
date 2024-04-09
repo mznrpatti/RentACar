@@ -12,8 +12,8 @@ using RentACar.Data;
 namespace RentACar.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240403192634_AddDefaultUser")]
-    partial class AddDefaultUser
+    [Migration("20240409190900_AddRole")]
+    partial class AddRole
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,23 @@ namespace RentACar.Migrations
                     b.ToTable("Rentals");
                 });
 
+            modelBuilder.Entity("RentACar.Models.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("RentACar.Models.Entities.Sale", b =>
                 {
                     b.Property<int>("Id")
@@ -153,6 +170,21 @@ namespace RentACar.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RentACar.Models.Entities.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
+                });
+
             modelBuilder.Entity("RentACar.Models.Entities.Car", b =>
                 {
                     b.HasOne("RentACar.Models.Entities.Category", "Category")
@@ -173,7 +205,7 @@ namespace RentACar.Migrations
                         .IsRequired();
 
                     b.HasOne("RentACar.Models.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Rentals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -192,6 +224,32 @@ namespace RentACar.Migrations
                         .IsRequired();
 
                     b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("RentACar.Models.Entities.UserRole", b =>
+                {
+                    b.HasOne("RentACar.Models.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RentACar.Models.Entities.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RentACar.Models.Entities.User", b =>
+                {
+                    b.Navigation("Rentals");
+
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

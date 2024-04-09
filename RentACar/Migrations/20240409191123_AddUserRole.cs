@@ -5,13 +5,15 @@
 namespace RentACar.Migrations
 {
     /// <inheritdoc />
-    public partial class AddDefaultUser : Migration
+    public partial class AddUserRole : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql($"insert into Users(Username, Name, Password) values " +
-                 $"('user', 'Default User', 'password')");
+            migrationBuilder.Sql($"insert into UserRoles(UserId, RoleId) values " +
+                $"(1, 2)," +
+                $"(2, 1)," +
+                $"(2, 2)");
         }
 
         /// <inheritdoc />
