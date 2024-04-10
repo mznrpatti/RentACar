@@ -146,12 +146,13 @@ namespace RentACar.Repository
             _context.SaveChanges();
         }
 
-        public IList<RentalModel> GetUserRentals(int userId)
+        public IList<UserRentalModel> GetUserRentals(int userId)
         {
             var userRentals = _context.Rentals
                                     .Include(r => r.Car)
                                     .Include(r => r.User)
                                     .Where(r => r.UserId == userId)
+                                    .OrderBy(r => r.FromDate)
                                     .ToList();
 
             var rentalModels = userRentals.Select(r => new RentalModel
@@ -163,7 +164,24 @@ namespace RentACar.Repository
                 Created = r.Created
             }).ToList();
 
-            return rentalModels;
+            List<UserRentalModel> userRentalModels = new List<UserRentalModel>();
+            foreach (var item in rentalModels)
+            {
+                var car = _context.Cars.FirstOrDefault(c => c.Id == item.CarId);
+                string carName = String.Concat(car.Brand," ",car.Model);
+
+                userRentalModels.Add(new UserRentalModel
+                {
+                    CarId=item.CarId,
+                    CarName = carName,
+                    UserId = item.UserId,
+                    FromDate = item.FromDate,
+                    ToDate = item.ToDate,
+                    Created = item.Created
+                });
+            }
+
+            return userRentalModels;
         }
 
         public int GetWholePrice(RentalModel rentalModel)

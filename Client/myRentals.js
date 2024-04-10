@@ -34,6 +34,9 @@ async function displayUserRentals(userRentals) {
 
         const carIdCell = document.createElement('td');
         carIdCell.textContent = rental.carId;
+		
+		const carNameCell = document.createElement('td');
+        carNameCell.textContent = rental.carName;
 
         const fromDateCell = document.createElement('td');
         fromDateCell.textContent = new Date(rental.fromDate).toLocaleDateString();
@@ -45,6 +48,7 @@ async function displayUserRentals(userRentals) {
         createdCell.textContent = new Date(rental.created).toLocaleDateString();
 
         row.appendChild(carIdCell);
+		row.appendChild(carNameCell);
         row.appendChild(fromDateCell);
         row.appendChild(toDateCell);
         row.appendChild(createdCell);

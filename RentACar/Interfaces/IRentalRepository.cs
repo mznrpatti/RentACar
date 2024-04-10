@@ -10,7 +10,7 @@ namespace RentACar.Interfaces
         public bool IsOverlap(RentalDateModel rentalDateModel);
         public int GetUserId(string username);
         public void AddRental(RentalModel rentalModel);
-        public IList<RentalModel> GetUserRentals(int userId);
+        public IList<UserRentalModel> GetUserRentals(int userId);
         public int GetWholePrice(RentalModel rentalModel);
         public RentalModel RentalDateToRental(RentalDateModel rentalDateModel);
     }
