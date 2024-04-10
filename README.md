@@ -104,28 +104,12 @@ sedan
   }
 ]
 ```
-### POST/<sub>ReserveCar
-#### Request
-```
-{
-  "carId": 1,
-  "username": "user",
-  "fromDate": "2024-04-09",
-  "toDate": "2024-04-11"
-}
-```
-#### Response
-```
-Car successfully reserved!
-```
 ### GET/<sub>GetRentalAvailability
 #### Request
 1
 #### Response
 ```
 [
-  "2024-04-08",
-  "2024-04-09",
   "2024-04-10",
   "2024-04-11",
   "2024-04-12",
@@ -139,8 +123,6 @@ Car successfully reserved!
   "2024-04-20",
   "2024-04-21",
   "2024-04-22",
-  "2024-04-23",
-  "2024-04-24",
   "2024-04-25",
   "2024-04-26",
   "2024-04-27",
@@ -154,7 +136,71 @@ Car successfully reserved!
   "2024-05-05",
   "2024-05-06",
   "2024-05-07",
-  "2024-05-08"
+  "2024-05-08",
+  "2024-05-09",
+  "2024-05-10"
+]
+```
+### POST/<sub>RentCar
+#### Request
+```
+{
+  "carId": 1,
+  "username": "user",
+  "fromDate": "2024-05-01",
+  "toDate": "2024-05-03"
+}
+```
+#### Response
+```
+Car successfully reserved!
+```
+### POST/<sub>CalculatePrice
+#### Request
+```
+{
+  "carId": 1,
+  "username": "user",
+  "fromDate": "2024-05-01",
+  "toDate": "2024-05-03"
+}
+```
+#### Response
+```
+Expected price: 24300
+```
+### GET/<sub>GetUserRentals
+#### Request
+```
+user
+```
+#### Response
+```
+[
+  {
+    "carId": 1,
+    "carName": "Fiat Tipo",
+    "userId": 1,
+    "fromDate": "2024-04-23T00:00:00",
+    "toDate": "2024-04-24T00:00:00",
+    "created": "2024-04-09T21:20:43"
+  },
+  {
+    "carId": 4,
+    "carName": "Toyota C-HR",
+    "userId": 1,
+    "fromDate": "2024-04-28T00:00:00",
+    "toDate": "2024-04-30T00:00:00",
+    "created": "2024-04-09T21:21:28"
+  },
+  {
+    "carId": 1,
+    "carName": "Fiat Tipo",
+    "userId": 1,
+    "fromDate": "2024-05-01T00:00:00",
+    "toDate": "2024-05-03T00:00:00",
+    "created": "2024-04-10T21:36:48.1268785"
+  }
 ]
 ```
 ### GET/<sub>GetAllSales
