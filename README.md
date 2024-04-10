@@ -11,12 +11,25 @@
 
 - ### Adatbázis: MSSQL
 ---------------------------------------
+### Telepítéshez szükséges:
+- ### Visual Studio 2022
+  - ### ASP.NET and web development
+  - ### Node.js development
+  - ### .NET Multi-platform App UI
+  - ### .NET desktop development
+- ### Node.js v20.12.1
+- ### SQL Server Management Studio
+--------------------------------------
 ### Bejelentkezés:
 
   | Felhasználónév | Jelszó |
   |----------------|--------|
   |     user       |password|
-	
+  
+--------------------------------------
+### Kezdeti lépések:
+- ### szerver oldal elindítása
+- ### login.html megnyitása
 ---------------------------------------
 # Tesztesetek
 ### POST/<sub>Login
