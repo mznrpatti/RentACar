@@ -73,5 +73,22 @@ namespace RentACar.Controllers
                 return BadRequest("Rental failed. " + ex.Message);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetUserRentals(string username)
+        {
+            try
+            {
+                var userId = _rentalRepository.GetUserId(username);
+                var userRentals = _rentalRepository.GetUserRentals(userId);
+
+                return Ok(userRentals);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Failed to retrieve user rentals. " + ex.Message);
+            }
+        }
+
     }
 }

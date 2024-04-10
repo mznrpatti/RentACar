@@ -78,3 +78,7 @@ function setWelcomeMessage() {
     var storedUsername = localStorage.getItem("username");
     document.getElementById("welcome").innerText = "Welcome "+storedUsername+"!";
 }
+
+function redirectToMyRentals() {
+    window.location.href = "myRentals.html";
+}

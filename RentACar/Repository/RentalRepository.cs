@@ -145,5 +145,27 @@ namespace RentACar.Repository
             _context.Rentals.Add(rental);
             _context.SaveChanges();
         }
+
+        public IList<RentalModel> GetUserRentals(int userId)
+        {
+            var userRentals = _context.Rentals
+                                    .Include(r => r.Car)
+                                    .Include(r => r.User)
+                                    .Where(r => r.UserId == userId)
+                                    .ToList();
+
+            var rentalModels = userRentals.Select(r => new RentalModel
+            {
+                UserId = userId,
+                CarId = r.Car.Id,
+                FromDate = r.FromDate,
+                ToDate = r.ToDate,
+                Created = r.Created
+            }).ToList();
+
+            return rentalModels;
+        }
+
+
     }
 }
