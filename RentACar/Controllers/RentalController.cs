@@ -53,14 +53,7 @@ namespace RentACar.Controllers
                     }
                     else
                     {
-                        RentalModel rentalModel = new RentalModel
-                        {
-                            CarId = rentalDateModel.CarId,
-                            UserId = _rentalRepository.GetUserId(rentalDateModel.Username),
-                            FromDate = fromDate,
-                            ToDate = toDate,
-                            Created = DateTime.Now
-                        };
+                        RentalModel rentalModel = _rentalRepository.RentalDateToRental(rentalDateModel);
 
                         _rentalRepository.AddRental(rentalModel);
 
@@ -71,6 +64,35 @@ namespace RentACar.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Rental failed. " + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CalculatePrice(RentalDateModel rentalDateModel)
+        {
+            try
+            {
+                RentalModel rentalModel = _rentalRepository.RentalDateToRental(rentalDateModel);
+                if (rentalModel.FromDate.CompareTo(rentalModel.ToDate) > 0)
+                {
+                    return BadRequest("From date cannot be earlier than to date!");
+                }
+                else
+                {
+                    if (_rentalRepository.IsOverlap(rentalDateModel))
+                    {
+                        return BadRequest("Overlapping rentals! You can't reserve the car on these days!");
+                    }
+                    else
+                    {
+                        int price = _rentalRepository.GetWholePrice(rentalModel);
+                        return Ok("Expected price: " + price);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Price calculation failed. " + ex.Message);
             }
         }
 

@@ -50,4 +50,25 @@ async function rent() {
         console.error("Rental error:", error);
         alert("Rental failed. Please try again later.");
     }
+	finally {
+        location.reload();
+    }
+}
+
+async function calculatePrice() {
+    var fromdate = document.getElementById('from-date').value;
+    var todate = document.getElementById('to-date').value;
+	var data = {
+            carid: carId,
+            username: getUsername(),
+			fromdate: fromdate,
+			todate: todate
+        };
+	try {
+        const response = await postDataText("rental/calculatePrice", data, false);
+        document.getElementById('pricetext').innerHTML=response;
+    } catch (error) {
+        console.error("Calculation error:", error);
+        alert("Calculation failed. Please try again later.");
+    }
 }

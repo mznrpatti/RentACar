@@ -17,7 +17,9 @@
 	<select id="from-date"></select>
 	<p>To:</p>
 	<select id="to-date"></select>
-	<br><input type="button" onclick="rent()" value="Rent">
+	<br><input type="button" onclick="calculatePrice()" value="Calculate price">
+	<p id="pricetext"></p>
+	<input type="button" onclick="rent()" value="Rent">
     <script src="rental.js"></script>
 	<script src="api.js"></script>
 </body>

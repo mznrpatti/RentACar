@@ -166,6 +166,45 @@ namespace RentACar.Repository
             return rentalModels;
         }
 
+        public int GetWholePrice(RentalModel rentalModel)
+        {
+            TimeSpan difference = rentalModel.ToDate.Date - rentalModel.FromDate.Date;
+            int days = (difference.Days) + 1;
+            var carSale = _context.Sales.FirstOrDefault(s => s.CarId == rentalModel.CarId);
+            var car = _context.Cars.FirstOrDefault(c => c.Id == rentalModel.CarId);
+            if (carSale == null)
+            {
+
+                return days * car.DailyPrice;
+            }
+            else
+            {
+                int newPrice = car.DailyPrice - (car.DailyPrice * carSale.Percentage / 100);
+                return days * newPrice;
+            }
+        }
+
+        public RentalModel RentalDateToRental(RentalDateModel rentalDateModel)
+        {
+            List<DateTime> availableDays = GetAvailableDates(rentalDateModel.CarId);
+            string format = "yyyy-MM-dd";
+            DateTime fromDate;
+            DateTime.TryParseExact(rentalDateModel.FromDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+            DateTime toDate;
+            DateTime.TryParseExact(rentalDateModel.ToDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+
+            RentalModel rentalModel = new RentalModel
+            {
+                CarId = rentalDateModel.CarId,
+                UserId = GetUserId(rentalDateModel.Username),
+                FromDate = fromDate,
+                ToDate = toDate,
+                Created = DateTime.Now
+            };
+
+            return rentalModel;
+        }
+
 
     }
 }

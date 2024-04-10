@@ -11,5 +11,7 @@ namespace RentACar.Interfaces
         public int GetUserId(string username);
         public void AddRental(RentalModel rentalModel);
         public IList<RentalModel> GetUserRentals(int userId);
+        public int GetWholePrice(RentalModel rentalModel);
+        public RentalModel RentalDateToRental(RentalDateModel rentalDateModel);
     }
 }
