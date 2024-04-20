@@ -112,5 +112,25 @@ namespace RentACar.Controllers
             }
         }
 
+        [HttpGet("all")]
+        public IActionResult GetAllRentals()
+        {
+            try
+            {
+                // Check if user has admin role
+                if (!User.IsInRole("Admin"))
+                {
+                    return Unauthorized("Unauthorized access! This endpoint requires admin role.");
+                }
+
+                var allRentals = _rentalRepository.GetAllRentals();
+                return Ok(allRentals);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Failed to retrieve all rentals. " + ex.Message);
+            }
+        }
+
     }
 }
