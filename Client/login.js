@@ -10,8 +10,9 @@ async function login() {
         };
         try {
             const response = await postData("auth/login", data, false);
-            if (response.username) {
-                localStorage.setItem("username", response.username); // store username
+            if (response.token && response.username) {
+				localStorage.setItem("username", response.username); // store username
+                localStorage.setItem("token", response.token); // store token
                 playAudio(); // play audio immediately after login
                 startAnimation();
             } else {

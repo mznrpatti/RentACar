@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('https://localhost:6200/api/car/getcars')
+    fetch('https://localhost:6200/api/car/getcars', 
+	{
+		headers: {
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
+		}
+	})
     .then(response => response.json())
     .then(data => {
         setWelcomeMessage();
