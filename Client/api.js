@@ -9,7 +9,7 @@ async function postData(url = "", data = {}, needAuth = true) {
         credentials: "same-origin", // include, *same-origin, omit
         headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + (needAuth ? JSON.parse(localStorage.getItem("data")).token : null),
+            Authorization: "Bearer " + (needAuth ? JSON.parse(localStorage.getItem("token")).token : null),
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -34,7 +34,7 @@ async function postDataText(url = "", data = {}, needAuth = true) {
         credentials: "same-origin", // include, *same-origin, omit
         headers: {
             "Content-Type": "application/json",
-            Authorization: "bearer " + (needAuth ? JSON.parse(localStorage.getItem("data")).token : null),
+            Authorization: "Bearer " + localStorage.getItem("token"),
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url

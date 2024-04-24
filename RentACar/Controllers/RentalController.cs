@@ -8,6 +8,7 @@ using System.Globalization;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentACar.Controllers
 {
@@ -30,6 +31,7 @@ namespace RentACar.Controllers
             return Ok(formattedDays);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public IActionResult RentCar(RentalDateModel rentalDateModel)
         {
@@ -67,6 +69,7 @@ namespace RentACar.Controllers
             }
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
         public IActionResult CalculatePrice(RentalDateModel rentalDateModel)
         {
@@ -96,6 +99,7 @@ namespace RentACar.Controllers
             }
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet]
         public IActionResult GetUserRentals(string username)
         {
@@ -112,23 +116,19 @@ namespace RentACar.Controllers
             }
         }
 
-        [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult GetAllRentals()
         {
             try
             {
-                // Check if user has admin role
-                if (!User.IsInRole("Admin"))
-                {
-                    return Unauthorized("Unauthorized access! This endpoint requires admin role.");
-                }
+                var rentals = _rentalRepository.GetAllRentals();
 
-                var allRentals = _rentalRepository.GetAllRentals();
-                return Ok(allRentals);
+                return Ok(rentals);
             }
             catch (Exception ex)
             {
-                return BadRequest("Failed to retrieve all rentals. " + ex.Message);
+                return BadRequest("Failed to retrieve rentals. " + ex.Message);
             }
         }
 

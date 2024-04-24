@@ -40,7 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Kategória szerinti szûrés
     categoryFilter.addEventListener('change', function () {
         const selectedCategory = categoryFilter.value;
-        fetch(`https://localhost:6200/api/car/getcarsbycategory?category=${selectedCategory}`)
+        fetch(`https://localhost:6200/api/car/getcarsbycategory?category=${selectedCategory}`, 
+		{
+			headers: {
+				'Authorization': 'Bearer ' + localStorage.getItem('token')
+			}
+		})
             .then(response => response.json())
             .then(data => {
                 carTableBody.innerHTML = ''; // Táblázat ürítése
@@ -60,7 +65,12 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error fetching cars by category:', error));
     });
     
-    fetch('https://localhost:6200/api/sale/getallsales')
+    fetch('https://localhost:6200/api/sale/getallsales', 
+	{
+		headers: {
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
+		}
+	})
             .then(response => response.json())
             .then(data => {
                 const saleTableBody = document.querySelector('#sale-table tbody'); // Az "On Sale" táblázat tbody eleme
@@ -86,4 +96,13 @@ function setWelcomeMessage() {
 
 function redirectToMyRentals() {
     window.location.href = "myRentals.html";
+}
+
+function redirectToAllRentals() {
+	window.location.href = "allRentals.html";
+}
+
+function logout() {
+	localStorage.clear();
+	window.location.href = "login.html";
 }

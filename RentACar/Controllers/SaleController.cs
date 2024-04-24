@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RentACar.Interfaces;
 
 namespace RentACar.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class SaleController : ControllerBase

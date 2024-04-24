@@ -4,7 +4,12 @@ const carId = urlParams.get('carId');
 
 const url = `https://localhost:6200/api/Rental/GetRentalAvailability/${carId}`;
 
-fetch(url)
+fetch(url, 
+	{
+		headers: {
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
+		}
+	})
 	.then(response => response.json())
     .then(data => {
 		const rentalContainer = document.getElementById('rental-dates-container');
@@ -25,7 +30,7 @@ fetch(url)
             toDateSelect.add(option.cloneNode(true));
         });
     })
-	.catch(error => console.error('Hiba történt:', error));
+	.catch(error => console.error('Error happened:', error));
 
 
 function getUsername(){
@@ -44,7 +49,7 @@ async function rent() {
 			todate: todate
         };
 	try {
-        const response = await postDataText("rental/rentcar", data, false);
+        const response = await postDataText("rental/rentcar", data, true);
         alert(response);
     } catch (error) {
         console.error("Rental error:", error);
@@ -65,7 +70,7 @@ async function calculatePrice() {
 			todate: todate
         };
 	try {
-        const response = await postDataText("rental/calculatePrice", data, false);
+        const response = await postDataText("rental/calculatePrice", data, rent);
         document.getElementById('pricetext').innerHTML=response;
     } catch (error) {
         console.error("Calculation error:", error);

@@ -1,14 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-        getUserRentals(storedUsername);
-    } else {
-        console.error('No username found in localStorage.');
-    }
+    getAllRentals();
 });
 
-function getUserRentals(username) {
-    fetch(`https://localhost:6200/api/Rental/GetUserRentals?username=${username}`, 
+function getAllRentals() {
+    fetch(`https://localhost:6200/api/Rental/GetAllRentals`, 
 	{
 		headers: {
 			'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -16,21 +11,22 @@ function getUserRentals(username) {
 	})
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to retrieve user rentals');
+                throw new Error('Failed to retrieve rentals');
             }
             return response.json();
         })
         .then(data => {
-            displayUserRentals(data);
+            displayAllRentals(data);
         })
         .catch(error => {
-            console.error('Error fetching user rentals:', error);
-            alert('Failed to retrieve user rentals. Please try again later.');
+            console.error('Error fetching rentals:', error);
+            alert('Failed to retrieve rentals. Please try again later.');
+			window.location.href = "index.html";
         });
 }
 
-async function displayUserRentals(userRentals) {
-    const tableBody = document.querySelector('#user-rentals-table tbody');
+async function displayAllRentals(userRentals) {
+    const tableBody = document.querySelector('#all-rentals-table tbody');
     
     tableBody.innerHTML = '';
 
@@ -40,8 +36,8 @@ async function displayUserRentals(userRentals) {
         const carIdCell = document.createElement('td');
         carIdCell.textContent = rental.carId;
 		
-		const carNameCell = document.createElement('td');
-        carNameCell.textContent = rental.carName;
+		const userIdCell = document.createElement('td');
+        userIdCell.textContent = rental.userId;
 
         const fromDateCell = document.createElement('td');
         fromDateCell.textContent = new Date(rental.fromDate).toLocaleDateString();
@@ -53,7 +49,7 @@ async function displayUserRentals(userRentals) {
         createdCell.textContent = new Date(rental.created).toLocaleDateString();
 
         row.appendChild(carIdCell);
-		row.appendChild(carNameCell);
+		row.appendChild(userIdCell);
         row.appendChild(fromDateCell);
         row.appendChild(toDateCell);
         row.appendChild(createdCell);

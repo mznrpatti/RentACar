@@ -5,6 +5,7 @@ using RentACar.Models;
 
 namespace RentACar.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class CarController : ControllerBase
@@ -16,7 +17,6 @@ namespace RentACar.Controllers
             _carRepository = carRepository;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult GetCars()
         {
