@@ -5,6 +5,9 @@ using RentACar.Data;
 using RentACar.Interfaces;
 using RentACar.Repository;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
+using RentACar.WebSocket;
+using RentACar.WebSocket.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,7 @@ services.AddScoped<ICarRepository, CarRepository>();
 services.AddScoped<IAuthRepository, AuthRepository>();
 services.AddScoped<ISaleRepository, SaleRepository>();
 services.AddScoped<IRentalRepository, RentalRepository>();
+services.AddWebSocketManager();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
@@ -106,6 +110,11 @@ app.UseRouting();
 
 // CORS engedélyezése
 app.UseCors("AllowAll");
+
+var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
+app.UseWebSockets();
+app.MapWebSocketManager("/api/RentACar/ws", serviceProvider.GetService<FoodHandler>());
 
 app.UseAuthorization();
 
