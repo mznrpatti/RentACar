@@ -22,9 +22,9 @@ namespace RentACar.Repository
             _mapper = mapper;
         }
 
-        public async Task<IList<SaleModel>> GetAllSales()
+        public IList<SaleModel> GetAllSales()
         {
-            var allSales = await _context.Sales.Include(s => s.Car).ToListAsync();
+            var allSales = _context.Sales.Include(s => s.Car).ToList();
             var saleModels = allSales.Select(s => new SaleModel
             {
                 CarId = s.Car.Id,
@@ -42,7 +42,7 @@ namespace RentACar.Repository
             var sale = await _context.Sales.FindAsync(id) ?? throw new Exception("Sale not found!");
             _context.Sales.Remove(sale);
             await _context.SaveChangesAsync();
-            return await GetAllSales();
+            return GetAllSales();
         }
 
         public bool CarExists(int id)
@@ -57,7 +57,7 @@ namespace RentACar.Repository
             var sale = _mapper.Map<Sale>(createSaleModel);
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
-            return await GetAllSales();
+            return GetAllSales();
         }
 
     }

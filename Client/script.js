@@ -77,17 +77,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.forEach(sale => {
                     const row = document.createElement('tr');
 					row.id = sale.carId;
-					const buttons = `
-						<button title="Delete" class="btn btn-danger">X</button>
-						<button class="btn btn-secondary">Modify</button>
-					`;
+					const button = `<button title="Delete" class="btn btn-danger">X</button>`;
                     row.innerHTML = `
                         <td>${sale.carBrand}</td>
                         <td>${sale.carModel}</td>
                         <td>${sale.description}</td>
                         <td>${sale.percentage}</td>
 						<td>${sale.changedPrice}</td>
-						<td>${buttons}</td>
+						<td>${button}</td>
                     `;
                     saleTableBody.appendChild(row);
                 });
