@@ -10,6 +10,7 @@ namespace RentACar.Repository.Mappings
         {
             CreateMap<Sale, SaleModel>();
             CreateMap<SaleModel, Sale>();
+            CreateMap<CreateSaleModel, Sale>();
         }
     }
 }

@@ -114,7 +114,7 @@ app.UseCors("AllowAll");
 var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
 app.UseWebSockets();
-app.MapWebSocketManager("/api/RentACar/ws", serviceProvider.GetService<FoodHandler>());
+app.MapWebSocketManager("/api/RentACar/ws", serviceProvider.GetService<SaleHandler>());
 
 app.UseAuthorization();
 

@@ -76,12 +76,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 const saleTableBody = document.querySelector('#sale-table tbody'); // Az "On Sale" táblázat tbody eleme
                 data.forEach(sale => {
                     const row = document.createElement('tr');
+					row.id = sale.carId;
+					const buttons = `
+						<button title="Delete" class="btn btn-danger">X</button>
+						<button class="btn btn-secondary">Modify</button>
+					`;
                     row.innerHTML = `
                         <td>${sale.carBrand}</td>
                         <td>${sale.carModel}</td>
                         <td>${sale.description}</td>
                         <td>${sale.percentage}</td>
 						<td>${sale.changedPrice}</td>
+						<td>${buttons}</td>
                     `;
                     saleTableBody.appendChild(row);
                 });
