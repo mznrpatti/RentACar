@@ -2,7 +2,7 @@
 ### Teljesített beadandók:
 - [x] Szerver - kliens
 - [x] Adatbázis, ORM 
-- [ ] Authentikáció - Authorizáció 
+- [x] Authentikáció - Authorizáció 
 - [ ] WebSocket
 --------------------------------------
 - ### Szerver: ASP.NET Core Web API
