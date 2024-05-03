@@ -27,6 +27,7 @@ namespace RentACar.Repository
             var allSales = _context.Sales.Include(s => s.Car).ToList();
             var saleModels = allSales.Select(s => new SaleModel
             {
+                Id=s.Id,
                 CarId = s.Car.Id,
                 CarBrand = s.Car.Brand,
                 CarModel = s.Car.Model,

@@ -62,9 +62,22 @@
             <!-- Sale datas -->
         </tbody>
     </table>
-	<center><button class="btn btn-secondary">Add new sale</button></center>
+	<center><button class="btn btn-secondary" id="openModal">Add new sale</button></center>
+	<div id="newSaleModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h3>Sale details: </h3>
+			<p>Car ID:</p>
+			<input type="number" id="carid" min="1">
+			<p>Description:</p>
+			<input type="text" id="description">
+			<p>Percentage:</p>
+			<input type="number" id="percentage" min="1"></br>
+			<button id="submitNewData" onclick="createsale()">Add new sale</button>
+		</div>
+	</div>
 
     <script src="script.js"></script>
-
+	<script src="api.js"></script>
 </body>
 </html>

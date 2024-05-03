@@ -11,7 +11,13 @@ function getAllRentals() {
 	})
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to retrieve rentals');
+				if (response.status === 401) {
+					throw new Error("Unauthorized");
+				} else if (response.status === 403) {
+					throw new Error("Forbidden");
+				} else {
+					throw new Error("HTTP error, status = " + response.status);
+				}
             }
             return response.json();
         })
@@ -19,9 +25,20 @@ function getAllRentals() {
             displayAllRentals(data);
         })
         .catch(error => {
-            console.error('Error fetching rentals:', error);
-            alert('Failed to retrieve rentals. Please try again later.');
-			window.location.href = "index.html";
+			
+			if (error.message === "Unauthorized") {
+				alert("You are not authorized to perform this action. Please log in as an admin.");
+				window.location.href = "index.html";
+			} else if (error.message === "Forbidden") {
+				alert("You don't have permission to perform this action.");
+				window.location.href = "index.html";
+			} else {
+				console.error('Error fetching rentals:', error);
+				alert('Failed to retrieve rentals. Please try again later.');
+				window.location.href = "index.html";
+        }
+			
+            
         });
 }
 

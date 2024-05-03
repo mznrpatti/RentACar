@@ -2,6 +2,7 @@
 {
     public class SaleModel
     {
+        public int Id { get; set; }
         public int CarId { get; set; }
         public string CarBrand { get; set; }
         public string CarModel { get; set; }

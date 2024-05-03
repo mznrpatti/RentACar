@@ -30,26 +30,33 @@ namespace RentACar.Controllers
             return Ok(allSales);
         }
 
-        [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteSale(int id)
         {
             var sales = await _saleRepository.DeleteSale(id);
-            return Ok(sales);
+            return Ok("Sale deleted successfully!");
         }
-
-        [HttpPost]
+        
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<IActionResult> CreateSale(CreateSaleModel createSaleModel)
         {
-            if (_saleRepository.CarExists(createSaleModel.CarId))
+            try
             {
-                var sales = await _saleRepository.CreateSale(createSaleModel);
-                return Ok(sales);
+                if (_saleRepository.CarExists(createSaleModel.CarId))
+                {
+                    var sales = await _saleRepository.CreateSale(createSaleModel);
+                    return Ok("Sale created successfully!");
+                }
+                else
+                {
+                    return BadRequest("Car not found!");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Car not foundd!");
+                return BadRequest("Sale creation failed. " + ex.Message);
             }
         }
     }

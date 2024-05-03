@@ -9,14 +9,20 @@ async function postData(url = "", data = {}, needAuth = true) {
         credentials: "same-origin", // include, *same-origin, omit
         headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + (needAuth ? JSON.parse(localStorage.getItem("token")).token : null),
+            Authorization: "Bearer " + localStorage.getItem("token"),
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: testJSON(data) ? data : JSON.stringify(data), // body data type must match "Content-Type" header
     });
-    if (response.status === 401 || response.status === 403) {
-        logout();
+	if (response.status === 401) {
+        throw new Error("Unauthorized");
+    }
+	if (response.status === 403) {
+        throw new Error("Forbidden");
+    }
+	if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
     }
     try {
         return await response.json() // parses JSON response into native JavaScript objects
@@ -40,8 +46,14 @@ async function postDataText(url = "", data = {}, needAuth = true) {
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: testJSON(data) ? data : JSON.stringify(data), // body data type must match "Content-Type" header
     });
-    if (response.status === 401 || response.status === 403) {
-        logout();
+    if (response.status === 401) {
+        throw new Error("Unauthorized");
+    }
+	if (response.status === 403) {
+        throw new Error("Forbidden");
+    }
+	if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
     }
     try {
         return await response.text() // parses JSON response into native JavaScript objects

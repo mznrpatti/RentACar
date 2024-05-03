@@ -70,7 +70,7 @@ async function calculatePrice() {
 			todate: todate
         };
 	try {
-        const response = await postDataText("rental/calculatePrice", data, rent);
+        const response = await postDataText("rental/calculatePrice", data, true);
         document.getElementById('pricetext').innerHTML=response;
     } catch (error) {
         console.error("Calculation error:", error);
