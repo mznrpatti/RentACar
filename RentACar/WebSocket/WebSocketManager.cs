@@ -39,5 +39,7 @@ namespace RentACar.WebSocket
         {
             return Guid.NewGuid().ToString();
         }
+
+      
     }
 }

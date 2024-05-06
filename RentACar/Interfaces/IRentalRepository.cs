@@ -13,5 +13,6 @@ namespace RentACar.Interfaces
         public IList<UserRentalModel> GetUserRentals(int userId);
         public int GetWholePrice(RentalModel rentalModel);
         public RentalModel RentalDateToRental(RentalDateModel rentalDateModel);
+        public bool CarExists(int carId);
     }
 }

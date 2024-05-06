@@ -223,6 +223,11 @@ namespace RentACar.Repository
             return rentalModel;
         }
 
+        public bool CarExists(int carId)
+        {
+            var rentals = GetAllRentals();
+            return rentals.Any(rental => rental.CarId == carId);
+        }
 
     }
 }
