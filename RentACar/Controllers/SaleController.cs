@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RentACar.Interfaces;
 using RentACar.Models;
 using RentACar.Models.Entities;
+using RentACar.WebSocket;
+using RentACar.WebSocket.Handlers;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace RentACar.Controllers
 {
@@ -48,6 +53,8 @@ namespace RentACar.Controllers
                 {
                     var sales = await _saleRepository.CreateSale(createSaleModel);
                     return Ok("Sale created successfully!");
+                    
+
                 }
                 else
                 {
