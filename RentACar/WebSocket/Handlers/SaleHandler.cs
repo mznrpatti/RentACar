@@ -11,13 +11,10 @@ namespace RentACar.WebSocket.Handlers
 
         public override async Task ReceiveAsync(System.Net.WebSockets.WebSocket socket, WebSocketReceiveResult result, byte[] buffer)
         {
-            if (result.MessageType == WebSocketMessageType.Text)
-            {
-                var message = $"New sale added: {Encoding.UTF8.GetString(buffer, 0, result.Count)}";
-                await SendMessageToAllAsync(message);
-                
-            }
             
+            var message = $"A new sale added to the car that has ID {Encoding.UTF8.GetString(buffer, 0, result.Count)}";
+            await SendMessageToAllAsync(message);
+             
         }
     }
 }

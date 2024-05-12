@@ -116,7 +116,7 @@ var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
 app.UseWebSockets();
 app.MapWebSocketManager("/api/RentACar/ws", serviceProvider.GetService<SaleHandler>());
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

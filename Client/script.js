@@ -158,7 +158,7 @@ async function createsale() {
 	try {
         const response = await postDataText("sale/createsale", data, true);
 		alert(response);
-		
+		sendMessage(carid)
 		if (!response.ok) {
             if (response.status === 401) {
                 throw new Error("Unauthorized");
