@@ -3,7 +3,7 @@
 - [x] Szerver - kliens
 - [x] Adatbázis, ORM 
 - [x] Authentikáció - Authorizáció 
-- [ ] WebSocket
+- [x] WebSocket
 --------------------------------------
 - ### Szerver: ASP.NET Core Web API
 
@@ -25,6 +25,7 @@
   | Felhasználónév | Jelszó |
   |----------------|--------|
   |     user       |password|
+  |    admin       |  admin |
   
 --------------------------------------
 ### Kezdeti lépések:
@@ -43,7 +44,9 @@
 #### Response
 ```
 {
-  "username": "user"	
+  "username": "user",
+  "token": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3MTU2MzE2MzR9.1OqTLkid_kJlXrYpZyDoBdIQZJUVlO81ohdNPYmXuvbZCYrvv2hksaSl_cD4sw7Qa3lFQVSC7gW-BLiqC3sq8A",
+  "success": false
 }
 ```
 ### GET/<sub>GetCars
@@ -203,6 +206,42 @@ user
   }
 ]
 ```
+### GET/<sub>GetAllRentals
+#### Request
+––
+#### Response
+```
+[
+  {
+    "carId": 1,
+    "userId": 1,
+    "fromDate": "2024-04-23T00:00:00",
+    "toDate": "2024-04-24T00:00:00",
+    "created": "2024-04-09T21:20:43"
+  },
+  {
+    "carId": 4,
+    "userId": 1,
+    "fromDate": "2024-04-28T00:00:00",
+    "toDate": "2024-04-30T00:00:00",
+    "created": "2024-04-09T21:21:28"
+  },
+  {
+    "carId": 1,
+    "userId": 1,
+    "fromDate": "2024-04-10T00:00:00",
+    "toDate": "2024-04-10T00:00:00",
+    "created": "2024-04-10T20:53:41.3147827"
+  },
+  {
+    "carId": 4,
+    "userId": 1,
+    "fromDate": "2024-04-24T00:00:00",
+    "toDate": "2024-04-24T00:00:00",
+    "created": "2024-04-24T20:53:06.8444537"
+  }
+]
+```
 ### GET/<sub>GetAllSales
 #### Request
 ––
@@ -210,11 +249,44 @@ user
 ```
 [
   {
+    "id": 1,
+    "carId": 1,
     "carBrand": "Fiat",
     "carModel": "Tipo",
     "description": "Fiat Tipo on sale!!!!",
     "percentage": 10,
     "changedPrice": 8100
+  },
+  {
+    "id": 22,
+    "carId": 4,
+    "carBrand": "Toyota",
+    "carModel": "C-HR",
+    "description": "Worth it!",
+    "percentage": 20,
+    "changedPrice": 8800
   }
 ]
+```
+### POST/<sub>CreateSale
+#### Request
+```
+{
+  "carId": 4,
+  "description": "Worth it!",
+  "percentage": 20
+}
+```
+#### Response
+```
+Sale created successfully!
+```
+### DELETE/<sub>DeleteSale
+#### Request
+```
+22
+```
+#### Response
+```
+Sale deleted successfully!
 ```
